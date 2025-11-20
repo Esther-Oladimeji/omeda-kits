@@ -79,13 +79,13 @@ function HeroSection() {
           <div className="text-center md:text-left md:max-w-lg lg:max-w-none mx-auto">
             
             {/* Trust Badge */}
-            <div className="flex justify-center md:justify-start mb-4 sm:mb-8 lg:mb-10">
-              <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B8EAD9]/10 backdrop-blur-sm border border-[#E8F4EF]">
-                <span className="text-xs font-medium text-[#1F2A2A] tracking-wide whitespace-nowrap">
-                  A Complete Storybook Learning Experience
-                </span>
-              </div>
-            </div>
+<div className="flex justify-center md:justify-start mb-6 sm:mb-8 lg:mb-10">
+  <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B8EAD9]/20 border border-[#E8F4EF]">
+    <span className="text-xs font-medium text-[#1F2A2A] tracking-wide whitespace-nowrap">
+      A Complete Storybook Learning Experience
+    </span>
+  </div>
+</div>
 
             {/* Headline */}
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-[#1F2A2A] mb-3 sm:mb-4 lg:mb-6 tracking-tight leading-tight px-4 sm:px-2 md:px-0">
@@ -204,7 +204,7 @@ function StorySection() {
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 lg:mb-20">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light text-[#1F2A2A] mb-4 tracking-tight">
-            Where Nigerian Kids Become Global Heroes
+            Where African Kids Become Global Heroes
           </h2>
           <div className="w-24 h-0.5 bg-[#E8F4EF] mx-auto"></div>
         </div>
@@ -648,6 +648,15 @@ function ProductSection({ openWaitlist, daysRemaining }) {
                       </div>
                     ))}
                   </div>
+
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 border border-[#E8F4EF]">
+                      <div className="flex items-center gap-2 text-sm text-[#64748B]">
+                       <span className="text-lg">↩</span>
+                        <span>Flip Back</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -659,7 +668,7 @@ function ProductSection({ openWaitlist, daysRemaining }) {
             {/* IMPACT FOCUS */}
             <div className="text-center md:text-left">
               <div className="inline-flex items-center gap-2 bg-[#E8F4EF] text-[#1F2A2A] px-4 py-2 rounded-full text-sm">
-                <span>🌟</span>
+                
                 Help more kids reach the story
               </div>
             </div>
