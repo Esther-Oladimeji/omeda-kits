@@ -26,7 +26,7 @@ export default function KitPage() {
   useEffect(() => {
     document.body.style.overflow = showModal ? "hidden" : "auto";
   }, [showModal]);
-  const daysForKits = useSimpleCountdown("2026-02-01T00:00:00"); // FIXED: Define days here
+  const daysForKits = useSimpleCountdown("2026-02-01T00:00:00"); 
 
   return (
     <>
@@ -36,119 +36,147 @@ export default function KitPage() {
         selectedKit={selectedKit}
       />
       <div className="font-[Nunito] text-[#1F2A2A] bg-white overflow-x-hidden">
-        <TopTrustBanner />
+       
         <HeroSection />
         <StorySection />
         <BookPreviewSection />
-       
+     
         <ProductSection
-          openModal={(type) => {
-            setSelectedKit(type);
-            setShowModal(true);
-          }}
+          openWaitlist={() => setShowModal(true)}
           daysRemaining={daysForKits}
         />
-        <JourneyBridge />
+        <TrustFutureSection />
+      
        
-        <FinalCTASection />
+        <FinalCTASection openWaitlist={() => setShowModal(true)}/>
        
       </div>
     </>
   );
 }
 
-function TopTrustBanner() {
-  const mint = "#B8EAD9";
-
-  return (
-    <div className="w-full flex justify-center py-3 bg-white">
-      <span
-        className="px-4 py-1 rounded-full text-[11px] font-medium tracking-wide"
-        style={{
-          background: mint,
-          color: "#1F2A2A",
-        }}
-      >
-        every proceeds go back to the kids
-      </span>
-    </div>
-  );
-}
 
 function HeroSection() {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   return (
-    <section className="w-full px-4 sm:px-6 py-12 sm:py-20 bg-white relative overflow-hidden">
-      {/* KEEP your subtle background elements - they're great */}
-      <div className="absolute top-10 -left-4 w-24 h-24 sm:w-40 sm:h-40 rounded-full bg-[#B8EAD9] opacity-3 blur-xl sm:blur-3xl"></div>
-      <div className="absolute bottom-8 -right-4 w-20 h-20 sm:w-32 sm:h-32 rounded-full bg-[#B8EAD9] opacity-3 blur-xl sm:blur-3xl"></div>
+    <section className="w-full px-6 lg:px-8 pb-20 pt-16 lg:py-24 bg-white relative overflow-hidden"> {/* MODIFIED: px-6 and py-20 minimum */}
+      {/* Background Elements - Responsive */}
+      <div className="absolute top-10 -left-4 w-24 h-24 sm:w-40 sm:h-40 lg:w-60 lg:h-60 rounded-full bg-[#B8EAD9] opacity-3 blur-2xl sm:blur-3xl"></div>
+      <div className="absolute bottom-8 -right-4 w-20 h-20 sm:w-32 sm:h-32 lg:w-48 lg:h-48 rounded-full bg-[#B8EAD9] opacity-3 blur-2xl sm:blur-3xl"></div>
 
-      {/* KEEP the clean back button */}
-      <button
-        onClick={() => window.history.back()}
-        className="absolute left-4 top-6 p-2 rounded-full bg-white/70 backdrop-blur-sm border border-gray-100 hover:shadow-sm transition-all duration-500"
-        aria-label="Go back"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#1F2A2A" className="w-4 h-4">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
+      {/* REFINED CONTAINER: Standard max-w-6xl */}
+      <div className="max-w-6xl mx-auto">
+        {/* RESPONSIVE GRID: Starts at md, reduced gap on md for tighter tablet flow */}
+        <div className="md:grid md:grid-cols-2 md:gap-8 lg:gap-16 md:items-center">
 
-      <div className="max-w-4xl mx-auto text-center pt-8">
-        
-        {/* UPDATED Trust Badge */}
-        <div className="flex justify-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-[#E8F4EF]">
-            <span className="text-xs font-medium text-[#1F2A2A] tracking-wide whitespace-nowrap">
-              The First Nagerian Tailor Storybook
-            </span>
+          {/* Left Column - Content */}
+          <div className="text-center md:text-left md:max-w-lg lg:max-w-none mx-auto">
+            
+            {/* Trust Badge */}
+            <div className="flex justify-center md:justify-start mb-6 sm:mb-8 lg:mb-10">
+              <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-[#E8F4EF]">
+                <span className="text-xs font-medium text-[#1F2A2A] tracking-wide whitespace-nowrap">
+                  A Complete Storybook Learning Experience
+                </span>
+              </div>
+            </div>
+
+            {/* Headline */}
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light text-[#1F2A2A] mb-3 sm:mb-4 lg:mb-6 tracking-tight leading-tight px-4 sm:px-2 md:px-0">
+              When Amala Goes to Beijing
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg lg:text-xl text-[#64748B] max-w-sm sm:max-w-md lg:max-w-lg mx-auto md:mx-0 mb-8 sm:mb-12 lg:mb-16 leading-relaxed px-4 md:px-0">
+              Sade and Walee take pride, food, and culture to China.
+            </p>
+
+            {/* Stats - Desktop Horizontal Layout */}
+            <div className="hidden md:flex justify-start gap-12 mb-8">
+              <div className="text-center md:text-left">
+                <div className="text-2xl font-light text-[#1F2A2A]">150+</div>
+                <div className="text-sm text-[#64748B]">Kits Sponsored</div>
+              </div>
+              <div className="text-center md:text-left">
+                <div className="text-2xl font-light text-[#1F2A2A]">200+</div>
+                <div className="text-sm text-[#64748B]">Families Waiting</div>
+              </div>
+              <div className="text-center md:text-left">
+                <div className="text-2xl font-light text-[#1F2A2A]">15+</div>
+                <div className="text-sm text-[#64748B]">Schools</div>
+              </div>
+            </div>
+
+            {/* CTA - Desktop */}
+            <div className="hidden md:block text-left">
+              <button
+                onClick={() => document.getElementById("story-section")?.scrollIntoView({ behavior: "smooth" })}
+                className="inline-flex items-center justify-center px-8 py-4 rounded-full text-lg font-medium text-[#1F2A2A] shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 group"
+                style={{ background: "#B8EAD9" }}
+              >
+                <span>Begin the Adventure</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 ml-2 group-hover:translate-y-0.5 transition-transform">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* UPDATED HEADLINE & SUBTITLE - Using your superior copy */}
-        <h1 className="text-2xl sm:text-3xl font-light text-[#1F2A2A] mb-3 sm:mb-4 tracking-tight leading-tight px-2">
-          The Amala to China Mission
-        </h1>
+          {/* Right Column - Visual */}
+          <div className="relative max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md mx-auto md:max-w-none md:mx-0 mb-8 sm:mb-12 md:mb-0"> {/* MODIFIED: Reduced max-width for image */}
+            {!isImageLoaded && (
+              <div className="w-full aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl sm:rounded-2xl lg:rounded-3xl animate-pulse"></div>
+            )}
 
-        <p className="text-base sm:text-lg text-[#64748B] max-w-xs sm:max-w-md mx-auto mb-8 sm:mb-12 leading-relaxed px-2">
-          Join Sade & Walee on a culinary adventure from Lagos to Beijing.
-        </p>
-
-        {/* HERO VISUAL - Keeping your existing reliable structure */}
-        <div className="relative max-w-[280px] sm:max-w-xs mx-auto mb-8 sm:mb-12">
-          {!isImageLoaded && (
-            <div className="w-full aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl sm:rounded-2xl animate-pulse"></div>
-          )}
-
-          <div className={`relative transition-all duration-700 ${isImageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
-            <img
-              src="/video/sade.png"
-              alt="Sade & Walee with their legendary cooler"
-              className="w-full aspect-[3/4] object-cover rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl border border-white/20"
-              onLoad={() => setIsImageLoaded(true)}
-            />
-
-            {/* UPDATED BADGE */}
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-3 py-1 shadow-sm border border-[#E8F4EF] whitespace-nowrap">
-              <span className="text-xs font-medium text-[#1F2A2A]">🇳🇬 A Nigerian Story for the World</span>
+            <div className={`relative transition-all duration-700 ${isImageLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
+              <img
+                src="/video/dragging-cooler-tall.png"
+                alt="Sade & Walee with their legendary cooler"
+                className="w-full aspect-[3/4] object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl shadow-lg sm:shadow-xl lg:shadow-2xl border-none" 
+                onLoad={() => setIsImageLoaded(true)}
+              />
+              
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-3 sm:px-4 py-1 shadow-sm border border-[#E8F4EF] whitespace-nowrap lg:-bottom-4">
+                <span className="text-xs font-medium text-[#1F2A2A]">🇳🇬 Join 200+ Families on Waitlist</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* UPDATED CTA */}
-        <div className="text-center px-2">
-          <button
-            onClick={() => document.getElementById("story-section")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center justify-center w-full max-w-[280px] px-6 py-4 rounded-full text-base font-medium text-[#1F2A2A] shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 group touch-manipulation"
-            style={{ background: "#B8EAD9" }}
-          >
-            <span>Begin the Adventure</span>
-            {/* Added subtle arrow for continuity */}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 ml-2 group-hover:translate-y-0.5 transition-transform">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
-            </svg>
-          </button>
+        {/* Mobile Stats & CTA - Hidden starting on tablet (md) */}
+        <div className="md:hidden">
+          {/* Mobile Stats */}
+          <div className="flex justify-center gap-8 mb-8">
+            <div className="text-center">
+              <div className="text-xl font-light text-[#1F2A2A]">150+</div>
+              <div className="text-xs text-[#64748B]">Sponsored</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl font-light text-[#1F2A2A]">200+</div>
+              <div className="text-xs text-[#64748B]">Waiting</div>
+            </div>
+            <div className="text-center">
+              <div className="text-xl font-light text-[#1F2A2A]">15+</div>
+              <div className="text-xs text-[#64748B]">Schools</div>
+            </div>
+          </div>
+
+          {/* Mobile CTA */}
+          <div className="text-center px-2">
+            <div className="w-full flex justify-center px-4 lg:hidden">
+  <button
+    onClick={() =>
+      document.getElementById("story-section")?.scrollIntoView({ behavior: "smooth" })
+    }
+    className="w-full max-w-md py-3 rounded-full text-base font-medium text-[#1F2A2A] shadow-lg 
+               hover:scale-105 active:scale-95 transition-all duration-300 group"
+    style={{ background: "#B8EAD9" }}
+  >
+    <span>Discover the Story</span>
+  </button>
+</div>
+          </div>
         </div>
       </div>
     </section>
@@ -157,60 +185,119 @@ function HeroSection() {
 
 function StorySection() {
   const milestones = [
-  { chapter: "1", text: "From Local to Global", hint: "Lagos to Beijing" },
-  { chapter: "2", text: "Cultural Confidence Born", hint: "Pride as power" }, 
-  { chapter: "5", text: "Friendship Beyond Borders", hint: "Amala meets kuàizi" },
-  { chapter: "8", text: "Becoming Teachers", hint: "Students to ambassadors" }
-];
+    { chapter: "1", text: "Lagos to Beijing", hint: "Sade & Walee are selected to represent Nigeria at an international food festival.", icon: "🌍" },
+    { chapter: "2", text: "A Suspicious Cooler", hint: "They carry one strange box. Nobody’s ready for what’s inside.", icon: "💪" }, 
+    { chapter: "5", text: "Kids from Everywhere", hint: "From Brazil to India, every child brings their best. But only one duo brings a story.", icon: "🤝" },
+    { chapter: "8", text: "Confidence in Culture", hint: "In a room full of new faces, they stand tall with their Yoruba and amala.", icon: "👩‍🏫" }
+  ];
 
   return (
-    <section id="story-section" className="w-full px-6 py-20 bg-white">
-      <div className="max-w-4xl mx-auto">
-        
-        {/* Minimal Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-2xl font-light text-[#1F2A2A] mb-4 tracking-tight">
-            The Adventure Unfolds
+    <section id="story-section" className="w-full px-6 lg:px-8 py-20 lg:py-28 bg-white"> {/* MODIFIED: px-6 and py-20 minimum */}
+      {/* REFINED CONTAINER: Standard max-w-6xl */}
+      <div className="max-w-6xl mx-auto">
+
+        {/* Header */}
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-light text-[#1F2A2A] mb-4 tracking-tight">
+            Where Nigerian Kids Become Global Heroes
           </h2>
           <div className="w-24 h-0.5 bg-[#E8F4EF] mx-auto"></div>
         </div>
 
-        {/* Cooler Journey Timeline - THIS IS THE CREATIVE PART */}
-        <div className="relative">
-          {/* Connecting Line */}
+        {/* Mobile/Tablet: Vertical Timeline - Hide at LG, but constrain width for a cleaner tablet look */}
+        <div className="lg:hidden relative max-w-xl mx-auto py-4 sm:py-6">
           <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#E8F4EF] via-[#B8EAD9] to-[#E8F4EF] transform translate-x-4"></div>
-          
-          {/* Milestones */}
-          <div className="space-y-12">
+
+          <div className="space-y-12 px-1.5 sm:px-2">
             {milestones.map((milestone, index) => (
               <div key={index} className="relative flex items-start gap-6 group">
-                {/* Chapter Marker */}
+                {/* Visual chapter marker for mobile */}
                 <div className="w-16 h-8 bg-white rounded-full border-2 border-[#E8F4EF] flex items-center justify-center text-sm font-medium text-[#1F2A2A] group-hover:border-[#B8EAD9] transition-colors duration-300 z-10 flex-shrink-0">
                   {milestone.chapter}
                 </div>
-                
-                {/* Content */}
-                <div className="flex-1 pt-1 group-hover:translate-x-2 transition-transform duration-300">
-                  <h3 className="text-lg font-medium text-[#1F2A2A] mb-1">
-                    {milestone.text}
-                  </h3>
-                  <p className="text-sm text-[#64748B]">
-                    {milestone.hint}
-                  </p>
+                {/* Text hint is the main content for mobile */}
+                <div className="flex-1 pt-1 group-hover:translate-x-0.5 transition-transform duration-300">
+                  <h3 className="text-lg font-medium text-[#1F2A2A] mb-1">{milestone.text}</h3> {/* Added text back as heading */}
+                  <p className="text-sm text-[#475569] leading-relaxed">{milestone.hint}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Subtle CTA */}
-        <div className="text-center mt-16">
+        {/* Desktop: Interactive Grid - Stays hidden until LG */}
+        <div className="hidden lg:grid lg:grid-cols-2 lg:gap-12 xl:gap-20 lg:items-start">
+
+          {/* Left: Enhanced Timeline with Icons */}
+          <div className="space-y-8">
+            {milestones.map((milestone, index) => (
+              <div key={index} className="group cursor-pointer">
+                <div className="flex items-start gap-6 p-6 rounded-2xl border-2 border-[#E8F4EF] hover:border-[#B8EAD9] hover:shadow-lg transition-all duration-300">
+                  {/* Icon + Chapter */}
+                  <div className="flex flex-col items-center gap-2">
+                    <div className="text-2xl">{milestone.icon}</div>
+                    <div className="w-12 h-12 bg-white rounded-full border-2 border-[#E8F4EF] flex items-center justify-center text-sm font-medium text-[#1F2A2A]">
+                      {milestone.chapter}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="text-xl font-medium text-[#1F2A2A] mb-2">{milestone.text}</h3>
+                    <p className="text-[#64748B] leading-relaxed">{milestone.hint}</p>
+                    {/* Hover Reveal - Cultural Insight */}
+                    <div className="mt-3 text-sm text-[#B8EAD9] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      Cultural moment in the story →
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Right: Interactive Book Preview */}
+          <div className="sticky top-8">
+            <div className="bg-gradient-to-br from-[#FAFBFC] to-white rounded-3xl p-8 border border-[#E8F4EF] shadow-sm">
+              <div className="text-center mb-8">
+                <div className="text-4xl mb-4">📚</div>
+                <h3 className="text-2xl font-light text-[#1F2A2A] mb-2">Chapter Journey</h3>
+                <p className="text-[#64748B]">Follow Sade & Walee's transformation</p>
+              </div>
+
+              {/* Progress Visualization */}
+              <div className="space-y-4">
+                <div className="flex justify-between text-sm text-[#64748B]">
+                  <span>Local Heroes</span>
+                  <span>Global Ambassadors</span>
+                </div>
+                <div className="w-full bg-[#E8F4EF] rounded-full h-2">
+                  <div className="bg-[#B8EAD9] rounded-full h-2 w-3/4 transition-all duration-500"></div>
+                </div>
+
+                {/* Cultural Exchange Stats */}
+                <div className="grid grid-cols-2 gap-4 mt-6">
+                  <div className="text-center p-4 bg-white rounded-xl border border-[#E8F4EF]">
+                    <div className="text-lg font-medium text-[#1F2A2A]">8</div>
+                    <div className="text-xs text-[#64748B]">Languages</div>
+                  </div>
+                  <div className="text-center p-4 bg-white rounded-xl border border-[#E8F4EF]">
+                    <div className="text-lg font-medium text-[#1F2A2A]">5</div>
+                    <div className="text-xs text-[#64748B]">Countries</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-12 sm:mt-16 lg:mt-20">
           <button 
             onClick={() => document.getElementById("book-preview")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[#E8F4EF] text-[#1F2A2A] font-medium hover:border-[#B8EAD9] transition-all duration-300"
+            className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 rounded-full border border-[#E8F4EF] text-[#1F2A2A] font-medium hover:border-[#B8EAD9] transition-all duration-300 text-base sm:text-lg"
           >
-            Turn the First Page
-            <span className="text-lg">→</span>
+            Preview the Book
+            <span className="text-lg sm:text-xl">→</span>
           </button>
         </div>
 
@@ -223,80 +310,82 @@ function BookPreviewSection() {
   const [activeSpread, setActiveSpread] = useState(0);
 
   const bookSpreads = [
-    {
-      image: "/video/sade.png",
-      theme: "Arrival",
-      chineseWord: "Nǐ hǎo"
-    },
-    {
-      image: "/video/walee.png",
-      theme: "Friendship", 
-      chineseWord: "Péngyǒu"
-    },
-    {
-      image: "/video/sade.png",
-      theme: "Pride",
-      chineseWord: "Wénhuà"
-    }
-  ];
+  {
+    image: "/video/book-cover.jpg",
+    theme: "The Trip Begins",
+    chineseWord: "Nǐ hǎo" // Hello
+  },
+  {
+    image: "/video/book-page.png",
+    theme: "Meeting the World",
+    chineseWord: "Péngyǒu" // Friend
+  },
+  {
+    image: "/video/workbook-page.png",
+    theme: "Try It Yourself",
+    chineseWord: "Wénhuà" // Culture
+  }
+];
 
   return (
-    <section id="book-preview" className="w-full px-6 py-20 bg-white">
+    <section id="book-preview" className="w-full px-6 py-20 bg-[#FAFBFC]"> {/* MODIFIED: px-6 and py-20 minimum */}
+      {/* REFINED CONTAINER: Use max-w-4xl for a highly focused, centered section */}
       <div className="max-w-4xl mx-auto">
 
-        {/* Creative Header - Book Chapter Style */}
-        <div className="text-center mb-16">
+        {/* Header - Better tablet scaling */}
+        <div className="text-center mb-12 sm:mb-16">
           <div className="inline-block border-b-2 border-[#B8EAD9] pb-2 mb-4">
             <span className="text-xs font-medium text-[#64748B] uppercase tracking-widest">
               Chapter Preview
             </span>
           </div>
-          <h2 className="text-2xl font-light text-[#1F2A2A] tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-light text-[#1F2A2A] tracking-tight">
             Turn the Pages
           </h2>
         </div>
 
-        {/* Book Exploration Experience */}
+        {/* Book Exploration */}
         <div className="relative">
-          {/* Book Spread with Page Curl Effect */}
+          {/* Book Spread */}
           <div className="relative group cursor-pointer" onClick={() => setActiveSpread((prev) => (prev + 1) % bookSpreads.length)}>
-            {/* Book Shadow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 rounded-2xl transform rotate-1 scale-95"></div>
+            {/* Book Shadow - Better tablet scaling */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl sm:rounded-2xl transform rotate-1 scale-95"></div>
 
-            {/* Main Book */}
-            <div className="relative bg-white rounded-2xl p-6 aspect-[3/4] flex items-center justify-center transform group-hover:scale-101 transition-transform duration-500 shadow-xl border border-[#E8F4EF]">
+            {/* Main Book - Ensures it fills the width of its container */}
+            <div className="relative bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 aspect-[3/4] max-w-full mx-auto flex items-center justify-center transform group-hover:scale-101 transition-transform duration-500 shadow-lg sm:shadow-xl border border-[#E8F4EF]">
               <img 
                 src={bookSpreads[activeSpread].image}
-                alt="Book spread"
+                alt={`Book spread: ${bookSpreads[activeSpread].theme}`}
                 className="w-full h-full object-cover rounded-lg"
               />
 
-              {/* Page Corner Fold */}
-              <div className="absolute bottom-6 right-6 w-8 h-8 bg-gradient-to-br from-transparent to-gray-100 rounded-tr-lg"></div>
+              {/* Page Corner Fold - Scale for tablet */}
+              <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-transparent to-gray-100 rounded-tr-lg"></div>
             </div>
 
-            {/* Interactive Hint */}
-            <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-4 py-2 border border-[#E8F4EF] shadow-sm">
-              <div className="flex items-center gap-2 text-sm text-[#64748B]">
+            {/* Interactive Hint - Better mobile/tablet positioning */}
+            <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-3 sm:px-4 py-1.5 sm:py-2 border border-[#E8F4EF] shadow-sm whitespace-nowrap">
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-[#64748B]">
                 <span>👆</span>
                 <span>Tap to turn page</span>
               </div>
             </div>
           </div>
 
-          {/* Context Bar - Integrated Design */}
-          <div className="mt-12 bg-gradient-to-r from-[#FAFBFC] to-white rounded-2xl p-6 border border-[#E8F4EF]">
-            <div className="flex items-center justify-between">
-              <div>
+          {/* Context Bar - Simplified for better flow on all screens */}
+          <div className="mt-8 sm:mt-12 bg-gradient-to-r from-[#FAFBFC] to-white rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-[#E8F4EF] text-center">
+            
+            {/* Theme and Word Stacked for cleaner look */}
+            <div className="flex justify-center items-end gap-6 mb-4">
+              <div className="text-center">
                 <div className="text-sm font-medium text-[#1F2A2A]">
                   {bookSpreads[activeSpread].theme}
                 </div>
                 <div className="text-xs text-[#64748B]">
-                  Cultural moment
+                  Cultural Moment
                 </div>
               </div>
-
-              <div className="text-right">
+              <div className="text-center">
                 <div className="text-sm font-medium text-[#1F2A2A]">
                   {bookSpreads[activeSpread].chineseWord}
                 </div>
@@ -306,13 +395,13 @@ function BookPreviewSection() {
               </div>
             </div>
 
-            {/* Progress Integrated */}
+            {/* Progress - Better mobile spacing */}
             <div className="flex justify-center gap-2 mt-4">
               {bookSpreads.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveSpread(index)}
-                  className={`w-8 h-1 rounded-full transition-all duration-300 ${
+                  className={`w-6 sm:w-8 h-1 rounded-full transition-all duration-300 ${
                     activeSpread === index 
                       ? 'bg-[#1F2A2A]' 
                       : 'bg-[#E8F4EF] hover:bg-[#B8EAD9]'
@@ -332,316 +421,277 @@ function BookPreviewSection() {
 
 
 
-function WaitlistModal({ open, onClose, selectedKit }) {
-  // COUNTDOWN
+function WaitlistModal({ open, onClose }) {
   const days = useSimpleCountdown("2026-02-01T00:00:00");
+  const [isSubmitted, setIsSubmitted] = useState(false); // New state to track submission
 
   if (!open) return null;
 
-  const mint = "#B8EAD9";
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    
+    // Use the Fetch API to send data without navigating away
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: {
+          'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      setIsSubmitted(true); // Show success message
+    } else {
+      // Handle error display here if needed (e.g., show a temporary error message)
+      alert("Oops! There was an issue submitting your form. Please try again.");
+    }
+  };
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-6">
-      {/* ——— MINT HALO BEHIND MODAL ——— */}
-      <div
-        className="absolute w-[250px] h-[250px] rounded-full blur-3xl opacity-40"
-        style={{ background: mint }}
-      ></div>
+      <div className="relative bg-white w-full max-w-md rounded-3xl p-8 shadow-xl">
 
-      {/* ——— MODAL BOX ——— */}
-      <div className="relative bg-white w-full max-w-sm rounded-3xl p-7 shadow-[0_20px_40px_rgba(0,0,0,0.1)]">
-        {/* ——— Close Button ——— */}
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 text-lg hover:bg-gray-200 transition"
-        >
+        <button onClick={onClose} className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition">
           ×
         </button>
 
-        {/* ——— Mint Countdown Pill ——— */}
-        <div className="flex justify-center mb-3">
-          <span
-            className="px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide"
-            style={{ background: mint, color: "#1F2A2A" }}
-          >
-            ⏳ {days} days to next drop
-          </span>
-        </div>
+        {/* --- Dynamic Content based on Submission State --- */}
 
-        {/* ——— Heading ——— */}
-        <h3 className="text-lg font-semibold text-[#1F2A2A] lowercase text-center mb-1">
-          secure your spot
-        </h3>
+        {isSubmitted ? (
+          // ✅ SUCCESS STATE
+          <div className="text-center py-8">
+            <div className="text-5xl mb-6"></div>
+            <h3 className="text-xl font-light text-[#1F2A2A] mb-3">
+              You're on the Priority List!
+            </h3>
+            <p className="text-sm text-[#64748B] mb-6">
+              Thank you for joining the Omeda community. We will message you with early access instructions for the February 2026 batch.
+            </p>
+            <button
+              onClick={onClose}
+              className="w-full py-3 rounded-full text-base font-medium text-white bg-[#1F2A2A] hover:bg-[#475569] transition-all duration-300"
+            >
+              Continue Browsing
+            </button>
+          </div>
 
-        <p className="text-sm text-gray-600 text-center mb-6">
-          february 1st batch opens soon — join early to avoid missing out.
-        </p>
-
-        {/* ——— FORM ——— */}
-        <form className="space-y-4">
-          {/* ——— Custom Styled Dropdown ——— */}
-          {/* ——— Custom Soft Mint Dropdown ——— */}
-          <div>
-            <label className="block text-sm mb-1 text-gray-700">kit</label>
-
-            <div className="relative">
-              <select
-                defaultValue={selectedKit || "premium"}
-                className="
-        appearance-none w-full px-3 py-2 rounded-lg 
-        text-sm outline-none 
-        border border-[#D8EEE6]
-        focus:ring-2 focus:ring-[#B8EAD9]
-      "
-                style={{
-                  background: "#F7FFFC", // VERY soft mint
-                  boxShadow: "0 0 0 1px rgba(184,234,217,0.35)",
-                }}
-              >
-                <option value="premium">Premium Cultural Kit (₦7,500)</option>
-                <option value="standard">Story & Practice Kit (₦4,500)</option>
-                <option value="study">Study Set (₦3,000)</option>
-              </select>
-
-              {/* custom arrow */}
-              <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs">
-                ▼
+        ) : (
+          // 📝 FORM STATE
+          <>
+            {/* URGENCY HEADER */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-sm font-medium mb-3">
+                ⚡ Next Batch: Feb 2026
               </div>
+              <h3 className="text-xl font-light text-[#1F2A2A] mb-2">
+                Get Priority Access
+              </h3>
+              <p className="text-sm text-[#64748B]">
+                Join {days} families waiting for our limited next batch
+              </p>
             </div>
-          </div>
 
-          {/* ——— Child Name ——— */}
-          <div>
-            <label className="block text-sm mb-1 text-gray-700">
-              child's name
-            </label>
-            <input
-              type="text"
-              className="
-                w-full px-3 py-2 rounded-lg border border-[#E5EDEA] 
-                text-sm focus:ring-2 focus:ring-[#B8EAD9]
-              "
-              placeholder="e.g. toluwa adeniyi"
-            />
-          </div>
+            {/* CLEAR OPTIONS */}
+            <form onSubmit={handleSubmit} action="https://formspree.io/f/myzlzowk" method="POST" className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-[#1F2A2A] mb-2">
+                  I'm interested in:
+                </label>
+                <select name="interest" required className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition-all">
+                  <option value="">Select an option</option>
+                  <option value="parent">Getting a kit for my child</option>
+                  <option value="sponsor">Sponsoring kits for a school</option>
+                  <option value="both">Both - for my child & to sponsor</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#1F2A2A] mb-2">
+                  WhatsApp Number (Optional)
+                </label>
+                <input
+                  type="tel"
+                  name="whatsapp"
+                  className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition-all"
+                  placeholder="e.g. +234 801 234 5678"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-[#1F2A2A] mb-2">
+                  Email for updates
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition-all"
+                  placeholder="your.email@example.com"
+                />
+              </div>
 
-          {/* ——— Phone ——— */}
-          <div>
-            <label className="block text-sm mb-1 text-gray-700">
-              parent phone number
-            </label>
-            <input
-              type="tel"
-              className="
-                w-full px-3 py-2 rounded-lg border border-[#E5EDEA] 
-                text-sm focus:ring-2 focus:ring-[#B8EAD9]
-              "
-              placeholder="080…"
-            />
-          </div>
+              {/* REMOVED: The hidden field that redirects the user */}
+              <input type="hidden" name="_subject" value="Omeda Priority List Signup" />
 
-          {/* ——— Reason ——— */}
-          <div>
-            <label className="block text-sm mb-1 text-gray-700">
-              reason (optional)
-            </label>
-            <textarea
-              className="
-                w-full px-3 py-2 h-20 rounded-lg border border-[#E5EDEA] 
-                text-sm focus:ring-2 focus:ring-[#B8EAD9]
-              "
-              placeholder="why your child needs the kit"
-            ></textarea>
-          </div>
+              <button
+                type="submit"
+                className="w-full py-4 rounded-full text-[#1F2A2A] font-medium bg-[#B8EAD9] hover:scale-105 transition-all duration-300 shadow-lg"
+              >
+                Join Priority List
+              </button>
+            </form>
 
-          {/* ——— Submit ——— */}
-          <button
-            type="submit"
-            className="
-              w-full py-2.5 rounded-full text-sm font-semibold 
-              text-[#1F2A2A] hover:opacity-90 transition
-            "
-            style={{ background: mint }}
-          >
-            join waitlist
-          </button>
-        </form>
+            {/* CLEAR EXPECTATIONS */}
+            <div className="text-center mt-6 pt-4 border-t border-[#E8F4EF]">
+              <p className="text-xs text-[#64748B]">
+                ✅ We'll email you first when booking opens<br/>
+                ✅ Limited batch - priority list gets early access
+              </p>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 }
 
-function ProductSection() {
+function ProductSection({ openWaitlist, daysRemaining }) {
   const [selectedKit, setSelectedKit] = useState('premium');
   const [isFlipped, setIsFlipped] = useState(false);
 
   const kits = {
     premium: {
-      name: 'Cultural Storybox',
-      price: '₦7,500',
-      tagline: 'Complete cultural journey',
-      image: '/video/sade.png',
-      contents: ['Storybook + Workbook', 'Custom Character Pen', 'Cultural Stickers', 'Chinese Flashcards', 'Completion Certificate'],
-      color: '#1F2A2A'
-    },
-    study: {
-      name: 'Study Essentials', 
-      price: '₦3,500',
-      tagline: 'Premium learning tools', 
-      image: '/video/walee.png',
-      contents: ['Premium Jotter', 'Pen & Pencil Set', 'Ruler & Eraser', 'Colored Crayons', 'Page Dividers'],
-      color: '#64748B'
-    },
-    bundle: {
-      name: 'Ultimate Pack',
-      price: '₦9,500',
-      tagline: 'Everything + exclusive perks',
-      image: '/video/sade.png',
-      contents: ['Complete Storybox', 'Study Essentials Kit', 'Founding Family Certificate', 'Early Access to Future Kits', 'Priority Support'],
-      color: '#B8EAD9'
+      name: 'Sade & Walee Storybox',
+      description: 'The complete Sade & Walee experience',
+      image: '/video/kit.jpg',
+      contents: ['Storybook + Workbook', 'Custom Character Pen', 'Cultural Stickers', 'Chinese Flashcards', 'Completion Certificate', '... and many more!'],
     }
   };
 
   const currentKit = kits[selectedKit];
 
   return (
-    <section id="products" className="w-full px-6 py-20 bg-white">
-      <div className="max-w-4xl mx-auto">
-        
-        {/* ELEGANT HEADER */}
-        <div className="text-center mb-16">
-          <div className="inline-block border-b border-[#B8EAD9] pb-2 mb-4">
-            <span className="text-xs font-medium text-[#64748B] uppercase tracking-widest">
-              Curated Learning Experiences
+    <section id="products" className="w-full px-6 py-20 lg:py-20 bg-white"> {/* MODIFIED: px-6 and py-20 minimum */}
+      {/* REFINED CONTAINER: Standard max-w-6xl */}
+      <div className="max-w-6xl mx-auto">
+
+        {/* CREATIVE HEADER - Flows from previous section */}
+        {/* In ProductSection */}
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-[#E8F4EF] mb-6">
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></div>
+            <span className="text-xs font-medium text-amber-700 uppercase tracking-widest">
+              The Complete Experience
             </span>
           </div>
-          <h2 className="text-2xl font-light text-[#1F2A2A] mb-4">Choose Their Journey</h2>
-          <div className="w-16 h-0.5 bg-[#E8F4EF] mx-auto"></div>
+
+          <h2 className="text-xl sm:text-2xl font-light text-[#1F2A2A] mb-4 tracking-tight">
+            From Reading to Practice
+          </h2>
+          <p className="text-sm text-[#64748B] max-w-md mx-auto">
+            Each book kit includes a workbook, flashcards, stationery, stickers and other hands-on materials.
+          </p>
         </div>
 
-        <div className="space-y-12">
-          
-          {/* PREMIUM KIT SELECTOR - VERTICAL STACK */}
-          <div className="flex flex-col gap-4 max-w-sm mx-auto">
-            {Object.entries(kits).map(([key, kit]) => (
-              <button
-                key={key}
-                onClick={() => {
-                  setSelectedKit(key);
-                  setIsFlipped(false);
-                }}
-                className={`text-left p-4 rounded-2xl border-2 transition-all duration-500 ${
-                  selectedKit === key 
-                    ? 'border-[#1F2A2A] bg-white shadow-lg scale-105' 
-                    : 'border-[#E8F4EF] bg-white hover:border-[#B8EAD9] hover:scale-102'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-base font-medium text-[#1F2A2A]">{kit.name}</div>
-                    <div className="text-sm text-[#64748B] mt-1">{kit.tagline}</div>
-                  </div>
-                  <div className="text-lg font-light text-[#1F2A2A]">{kit.price}</div>
-                </div>
-              </button>
-            ))}
-          </div>
+        {/* SIMPLIFIED LAYOUT - One focus kit */}
+        {/* RESPONSIVE GRID: Starts at md, uses md:gap-8 for tighter tablet flow, max-w-4xl to contain the core content */}
+        <div className="grid md:grid-cols-2 max-w-4xl mx-auto md:gap-8 lg:gap-12 items-start">
 
-          {/* FLIPPING CARD EXPERIENCE */}
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            
-            {/* FLIPPING CARD CONTAINER */}
-            <div className="relative">
-              <div 
-                className={`relative w-full aspect-square cursor-pointer transition-transform duration-700 preserve-3d ${
-                  isFlipped ? 'rotate-y-180' : ''
-                }`}
-                onClick={() => setIsFlipped(!isFlipped)}
-              >
-                {/* FRONT SIDE - KIT IMAGE */}
-                <div className="absolute inset-0 backface-hidden">
-                  <div className="bg-white rounded-2xl border border-[#E8F4EF] overflow-hidden w-full h-full">
-                    <img 
-                      src={currentKit.image}
-                      alt={currentKit.name}
-                      className="w-full h-full object-cover"
-                    />
-                    
-                    {/* FLOATING HINT */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 border border-[#E8F4EF]">
-                        <div className="flex items-center gap-2 text-sm text-[#64748B]">
-                          <span className="text-lg">🔄</span>
-                          <span>Flip to explore contents</span>
-                        </div>
+          {/* ENHANCED FLIP CARD - More elegant */}
+          <div className="relative w-full">
+            <div 
+              className={`relative w-full aspect-square cursor-pointer transition-all duration-700 preserve-3d active:scale-95 ${
+                isFlipped ? 'rotate-y-180' : ''
+              }`}
+              onClick={() => setIsFlipped(!isFlipped)}
+            >
+              {/* FRONT - Cleaner design */}
+              <div className="absolute inset-0 backface-hidden">
+                <div className="bg-white rounded-xl sm:rounded-2xl border border-[#E8F4EF] overflow-hidden w-full h-full shadow-lg hover:shadow-xl transition-shadow">
+                  <img 
+                    src={currentKit.image}
+                    alt={currentKit.name}
+                    className="w-full h-full object-cover"
+                  />
+
+                  {/* ELEGANT HINT */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                    <div className="bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 border border-[#E8F4EF]">
+                      <div className="flex items-center gap-2 text-sm text-[#64748B]">
+                       <span className="text-lg">✨</span>
+                        <span>Explore the Kit</span>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* BACK SIDE - CONTENTS LIST */}
-                <div className="absolute inset-0 backface-hidden rotate-y-180">
-                  <div className="bg-gradient-to-br from-[#FAFBFC] to-white rounded-2xl border border-[#E8F4EF] p-8 w-full h-full flex flex-col justify-center">
-                    <div className="text-center mb-6">
-                      <div className="text-sm font-medium text-[#1F2A2A] mb-2">What's Inside</div>
-                      <div className="w-12 h-0.5 bg-[#B8EAD9] mx-auto"></div>
-                    </div>
-                    
-                    <div className="space-y-3">
-                      {currentKit.contents.map((item, index) => (
-                        <div key={index} className="flex items-center gap-3">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#B8EAD9] flex-shrink-0"></div>
-                          <span className="text-sm text-[#64748B]">{item}</span>
-                        </div>
-                      ))}
-                    </div>
+              {/* BACK - Premium contents */}
+              <div className="absolute inset-0 backface-hidden rotate-y-180">
+                <div className="bg-gradient-to-br from-[#FAFBFC] to-white rounded-xl sm:rounded-2xl border border-[#E8F4EF] p-6 sm:p-8 w-full h-full flex flex-col justify-center">
+                  <div className="text-center mb-6">
+                    <div className="text-sm font-medium text-[#1F2A2A] mb-2">Complete Learning Kit</div>
+                    <div className="w-8 h-0.5 bg-[#B8EAD9] mx-auto"></div>
+                  </div>
 
-                    {/* CLOSE HINT */}
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-                      <div className="bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 border border-[#E8F4EF]">
-                        <div className="flex items-center gap-2 text-sm text-[#64748B]">
-                          <span>Flip back to see kit</span>
-                        </div>
+                  <div className="space-y-3">
+                    {currentKit.contents.map((item, index) => (
+                      <div key={index} className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#B8EAD9] flex-shrink-0"></div>
+                        <span className="text-sm text-[#64748B]">{item}</span>
                       </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* KIT DETAILS & CTA */}
-            <div className="space-y-8">
-              
-              {/* SOCIAL IMPACT */}
-              <div className="text-center">
-                <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-2 rounded-full text-sm mb-4">
-                  <span className="text-green-500">❤️</span>
-                  Your purchase sponsors educational kits
+          {/* STREAMLINED CONTENT - Strategic messaging */}
+          <div className="space-y-6 sm:space-y-8 text-center md:text-left pt-6 md:pt-0">
+
+            {/* IMPACT FOCUS */}
+            <div className="text-center md:text-left">
+              <div className="inline-flex items-center gap-2 bg-[#E8F4EF] text-[#1F2A2A] px-4 py-2 rounded-full text-sm">
+                <span>🌟</span>
+                Help more kids reach the story
+              </div>
+            </div>
+
+            {/* CLEAN VALUE PROPOSITION */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-light text-[#1F2A2A] text-center md:text-left">
+                {currentKit.name}
+              </h3>
+              <p className="text-sm text-[#64748B] text-center md:text-left leading-relaxed">
+                
+              </p>
+            </div>
+
+            {/* STRATEGIC BENEFITS */}
+            <div className="space-y-3">
+              {[
+  'Kids read, build, and explore',
+  'Made for Nigerian homes & schools',
+  'Easy for parents and teachers to use',
+  'Teaches culture with pride'
+].map((benefit, index) => (
+                <div key={index} className="flex items-start gap-3 text-sm text-[#64748B]">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#B8EAD9] mt-1 flex-shrink-0"></div>
+                  <span>{benefit}</span>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              {/* FOUNDING PERKS */}
-              <div className="space-y-4">
-                <h4 className="text-sm font-medium text-[#1F2A2A] text-center">Founding Family Benefits</h4>
-                <div className="space-y-2">
-                  {['Early access to all future kits', 'Lifetime special pricing', 'Signed founding certificate', 'Priority support'].map((perk, index) => (
-                    <div key={index} className="flex items-center gap-3 text-sm text-[#64748B]">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#B8EAD9] flex-shrink-0"></div>
-                      {perk}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA */}
-              <div className="text-center space-y-4">
-                <button className="w-full py-4 rounded-full text-lg font-medium text-[#1F2A2A] bg-[#B8EAD9] hover:scale-105 transition-all duration-300 shadow-lg">
-                  Join Founding Families
-                </button>
-                <p className="text-xs text-[#64748B]">
-                  Limited spots • Delivery calculated at checkout
-                </p>
-              </div>
+            {/* ELEGANT CTA */}
+            <div className="text-center md:text-left space-y-3">
+              <button onClick={openWaitlist} className="w-full py-3 sm:py-4 rounded-full text-base font-medium text-[#1F2A2A] bg-[#B8EAD9] hover:scale-105 transition-all duration-300 shadow-lg">
+                Join the Waitlist
+              </button>
+              <p className="text-xs text-[#64748B]">
+                Next storybox batch: February 2024
+              </p>
             </div>
           </div>
         </div>
@@ -661,38 +711,49 @@ function ProductSection() {
     </section>
   );
 }
-function JourneyBridge() {
+
+
+function TrustFutureSection() {
   return (
-    <section className="px-6 py-24 bg-gradient-to-b from-white to-[#FAFBFC]">
-      <div className="max-w-md mx-auto text-center">
-        
-        {/* TRANSITION MOMENT */}
-        <div className="space-y-8">
-          
-          {/* ELEGANT ICON - NEUTRAL */}
-          <div className="flex justify-center">
-            <div className="w-12 h-12 rounded-full bg-[#F8FAFC] flex items-center justify-center border border-[#E2E8F0]">
-              <span className="text-[#64748B] text-lg">→</span>
-            </div>
-          </div>
+    <section className="px-6 py-20 bg-[#FAFBFC]"> {/* MODIFIED: px-6 and py-20 minimum */}
+      {/* REFINED CONTAINER: Use max-w-2xl for focused section, consistent with FinalCTA */}
+      <div className="max-w-2xl mx-auto text-center space-y-8 sm:space-y-10">
 
-          {/* STRATEGIC MESSAGE */}
-          <div className="space-y-4">
-            <p className="text-[#64748B] text-lg font-light">
-              Ready to begin their cultural journey?
-            </p>
-            <div className="text-sm text-[#64748B] tracking-widest">
-              FINAL STEP AHEAD
-            </div>
+        {/* SOCIAL PROOF */}
+        <div className="space-y-2">
+          <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-[#E8F4EF]">
+            <span className="text-green-500">✓</span>
+            <span className="text-sm font-medium text-[#1F2A2A]">150+ Kits Already Sponsored</span>
           </div>
+          <p className="text-[#64748B] text-sm">
+            Reaching homes and schools in Lagos & Ogun state.
+          </p>
+        </div>
 
-          {/* SUBTLE PROGRESS INDICATOR - NEUTRAL */}
-          <div className="flex justify-center gap-1">
-            <div className="w-1 h-1 rounded-full bg-[#E2E8F0]"></div>
-            <div className="w-1 h-1 rounded-full bg-[#E2E8F0]"></div>
-            <div className="w-6 h-1 rounded-full bg-[#94A3B8]"></div> {/* Darker gray instead of mint */}
-          </div>
+        {/* VISION */}
+        <div className="space-y-3 px-4">
+          <h3 className="text-lg sm:text-xl font-light text-[#1F2A2A]">
+            Just the Beginning
+          </h3>
+          <p className="text-[#64748B] text-sm leading-relaxed">
+            From art kits to coding games, Omeda is just getting started. 
+          </p>
+        </div>
 
+        {/* TRUST SIGNALS */}
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 text-xs text-[#64748B] px-4">
+          <span className="flex items-center justify-center gap-1">
+            <span>✓</span>
+            <span>Nigerian-built</span>
+          </span>
+          <span className="flex items-center justify-center gap-1">
+            <span>✓</span>
+            <span>Classroom-friendly</span>
+          </span>
+          <span className="flex items-center justify-center gap-1">
+            <span>✓</span>
+            <span>Trusted by families</span>
+          </span>
         </div>
 
       </div>
@@ -702,42 +763,38 @@ function JourneyBridge() {
 
 
 
-function FinalCTASection() {
+
+function FinalCTASection({ openWaitlist }) {
   return (
-    <section id="final-cta" className="px-6 py-20 bg-white">  {/* White background to stand out */}
-      <div className="max-w-2xl mx-auto text-center">
-        
-        {/* DISTINCT HEADER */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-medium text-[#1F2A2A] mb-4">  {/* Bolder font */}
-            Complete Their Adventure
+    <section className="px-6 py-20 bg-white"> {/* MODIFIED: px-6 and py-20 minimum */}
+      {/* REFINED CONTAINER: Standard max-w-2xl for focused CTA */}
+      <div className="max-w-2xl mx-auto text-center space-y-10">
+
+        {/* No-fluff heading */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-light text-[#1F2A2A] tracking-tight">
+            Be Part of the First 200
           </h2>
-          <p className="text-[#64748B]">
-            Secure your Cultural Storybox today
+          <p className="text-base text-[#64748B] leading-relaxed">
+            Get early access and real tools in more kids' hands.
           </p>
         </div>
 
-        {/* PROMINENT CTA */}
+        {/* Call-to-action */}
         <div className="space-y-4">
-          <button className="w-full max-w-xs mx-auto py-4 rounded-full text-[#1F2A2A] font-medium bg-[#B8EAD9] hover:scale-105 transition-all duration-300 shadow-lg">
-            Get the Kit - ₦7,500
+          <button
+            onClick={openWaitlist}
+            className="w-full max-w-sm mx-auto py-4 rounded-full text-lg font-medium text-[#1F2A2A] bg-[#B8EAD9] hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Join the Waitlist
           </button>
-          
-          {/* SECONDARY OPTIONS */}
-          <div className="flex justify-center gap-6 text-sm">
-            <button className="text-[#64748B] hover:text-[#1F2A2A] transition-colors duration-300">
-              Apply for Support
-            </button>
-            <a href="/sponsor" className="text-[#64748B] hover:text-[#1F2A2A] transition-colors duration-300">
-              Sponsor a Child
-            </a>
-          </div>
+          <p className="text-sm text-[#64748B]">Available February 2026</p>
         </div>
 
-        {/* FOOTER */}
-        <div className="mt-12 pt-8 border-t border-[#E8F4EF]">
-          <p className="text-xs text-[#64748B]">
-            Sade & Walee • Powered by Omeda
+        {/* Soft footer */}
+        <div className="pt-8 border-t border-[#E8F4EF]">
+          <p className="text-sm text-[#64748B]">
+            Omeda • For the future of African children.
           </p>
         </div>
       </div>
