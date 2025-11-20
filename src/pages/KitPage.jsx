@@ -80,7 +80,7 @@ function HeroSection() {
             
             {/* Trust Badge */}
 <div className="flex justify-center md:justify-start mb-6 sm:mb-8 lg:mb-10">
-  <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B8EAD9]/20 border border-[#E8F4EF]">
+  <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B8EAD9]/10 border border-[#E8F4EF]">
     <span className="text-xs font-medium text-[#1F2A2A] tracking-wide whitespace-nowrap">
       A Complete Storybook Learning Experience
     </span>
