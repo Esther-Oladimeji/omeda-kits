@@ -428,130 +428,131 @@ function BookPreviewSection() {
 
 function WaitlistModal({ open, onClose }) {
   const days = useSimpleCountdown("2026-02-01T00:00:00");
-  const [isSubmitted, setIsSubmitted] = useState(false); // New state to track submission
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   if (!open) return null;
 
-  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    
-    // Use the Fetch API to send data without navigating away
+
     const response = await fetch(form.action, {
       method: form.method,
       body: new FormData(form),
       headers: {
-          'Accept': 'application/json'
-      }
+        Accept: "application/json",
+      },
     });
 
     if (response.ok) {
-      setIsSubmitted(true); // Show success message
+      setIsSubmitted(true);
     } else {
-      // Handle error display here if needed (e.g., show a temporary error message)
-      alert("Oops! There was an issue submitting your form. Please try again.");
+      alert("Oops! Something went wrong. Please try again.");
     }
   };
 
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-6">
-      <div className="relative bg-white w-full max-w-md rounded-3xl p-8 shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4 sm:px-6">
+      <div className="relative bg-white w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-xl">
 
-        <button onClick={onClose} className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition">
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 transition"
+        >
           ×
         </button>
 
-        {/* --- Dynamic Content based on Submission State --- */}
-
+        {/* Submission Success State */}
         {isSubmitted ? (
-          // ✅ SUCCESS STATE
-          <div className="text-center py-8">
-            <div className="text-5xl mb-6"></div>
-            <h3 className="text-xl font-light text-[#1F2A2A] mb-3">
+          <div className="text-center py-10">
+            <h3 className="text-xl font-medium text-[#1F2A2A] mb-3">
               You're on the Priority List!
             </h3>
             <p className="text-sm text-[#64748B] mb-6">
-              Thank you for joining the Omeda community. We will message you with early access instructions for the February 2026 batch.
+              Thanks for joining. We'll message you when the February 2026 batch opens.
             </p>
             <button
               onClick={onClose}
-              className="w-full py-3 rounded-full text-base font-medium text-white bg-[#1F2A2A] hover:bg-[#475569] transition-all duration-300"
+              className="w-full py-3 rounded-full text-base font-medium text-white bg-[#1F2A2A] hover:bg-[#475569] transition"
             >
               Continue Browsing
             </button>
           </div>
-
         ) : (
-          // 📝 FORM STATE
           <>
-            {/* URGENCY HEADER */}
+            {/* Header */}
             <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-sm font-medium mb-3">
+              <div className="inline-block bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full mb-3">
                 ⚡ Next Batch: Feb 2026
               </div>
-              <h3 className="text-xl font-light text-[#1F2A2A] mb-2">
-                Get Priority Access
-              </h3>
-              <p className="text-sm text-[#64748B]">
-                Join {days} families waiting for our limited next batch
-              </p>
+              <h3 className="text-xl font-medium text-[#1F2A2A] mb-2">Get Priority Access</h3>
+              <p className="text-sm text-[#64748B]">Join {days} families already waiting</p>
             </div>
 
-            {/* CLEAR OPTIONS */}
-            <form onSubmit={handleSubmit} action="https://formspree.io/f/myzlzowk" method="POST" className="space-y-4">
+            {/* Form */}
+            <form
+              onSubmit={handleSubmit}
+              action="https://formspree.io/f/myzlzowk"
+              method="POST"
+              className="space-y-4"
+            >
               <div>
-                <label className="block text-sm font-medium text-[#1F2A2A] mb-2">
+                <label className="block text-sm text-[#1F2A2A] font-medium mb-1">
                   I'm interested in:
                 </label>
-                <select name="interest" required className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition-all">
+                <select
+                  name="interest"
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] bg-white text-sm focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition"
+                >
                   <option value="">Select an option</option>
                   <option value="parent">Getting a kit for my child</option>
                   <option value="sponsor">Sponsoring kits for a school</option>
-                  <option value="both">Both - for my child & to sponsor</option>
+                  <option value="both">Both</option>
                 </select>
               </div>
+
               <div>
-                <label className="block text-sm font-medium text-[#1F2A2A] mb-2">
-                  WhatsApp Number (Optional)
+                <label className="block text-sm text-[#1F2A2A] font-medium mb-1">
+                  WhatsApp Number (optional)
                 </label>
                 <input
                   type="tel"
                   name="whatsapp"
-                  className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition-all"
-                  placeholder="e.g. +234 801 234 5678"
+                  placeholder="+234 801 234 5678"
+                  className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] text-sm focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition"
                 />
               </div>
+
               <div>
-                <label className="block text-sm font-medium text-[#1F2A2A] mb-2">
+                <label className="block text-sm text-[#1F2A2A] font-medium mb-1">
                   Email for updates
                 </label>
                 <input
                   type="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition-all"
-                  placeholder="your.email@example.com"
+                  placeholder="your@email.com"
+                  className="w-full px-4 py-3 rounded-xl border border-[#E8F4EF] text-sm focus:border-[#B8EAD9] focus:ring-2 focus:ring-[#B8EAD9] transition"
                 />
               </div>
 
-              {/* REMOVED: The hidden field that redirects the user */}
-              <input type="hidden" name="_subject" value="Omeda Priority List Signup" />
+              <input type="hidden" name="_subject" value="Omeda Waitlist Signup" />
 
               <button
                 type="submit"
-                className="w-full py-4 rounded-full text-[#1F2A2A] font-medium bg-[#B8EAD9] hover:scale-105 transition-all duration-300 shadow-lg"
+                className="w-full py-4 rounded-full bg-[#B8EAD9] text-[#1F2A2A] font-medium hover:scale-105 transition-all duration-300 shadow-md"
               >
                 Join Priority List
               </button>
             </form>
 
-            {/* CLEAR EXPECTATIONS */}
+            {/* Footer Note */}
             <div className="text-center mt-6 pt-4 border-t border-[#E8F4EF]">
-              <p className="text-xs text-[#64748B]">
-                ✅ We'll email you first when booking opens<br/>
-                ✅ Limited batch - priority list gets early access
+              <p className="text-xs text-[#64748B] leading-relaxed">
+                ✅ Priority list gets early access<br />
+                ✅ We'll email you when booking opens
               </p>
             </div>
           </>
