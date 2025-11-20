@@ -60,22 +60,27 @@ function HeroSection() {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   return (
-    <section className="w-full px-6 lg:px-8 pb-20 pt-16 lg:py-24 bg-white relative overflow-hidden"> {/* MODIFIED: px-6 and py-20 minimum */}
-      {/* Background Elements - Responsive */}
+    // FIX 1: Apply flex structure and min-h-screen on mobile to constrain height.
+    // Use minimal vertical padding (pt-8 pb-4) to reduce height. Revert to normal flow on medium screens.
+    <section className="w-full px-6 lg:px-8 pt-8 pb-4 md:py-16 lg:py-24 bg-white relative overflow-hidden min-h-screen flex flex-col md:block">
+      
+      {/* Background Elements - Responsive (No change here) */}
       <div className="absolute top-10 -left-4 w-24 h-24 sm:w-40 sm:h-40 lg:w-60 lg:h-60 rounded-full bg-[#B8EAD9] opacity-3 blur-2xl sm:blur-3xl"></div>
       <div className="absolute bottom-8 -right-4 w-20 h-20 sm:w-32 sm:h-32 lg:w-48 lg:h-48 rounded-full bg-[#B8EAD9] opacity-3 blur-2xl sm:blur-3xl"></div>
 
       {/* REFINED CONTAINER: Standard max-w-6xl */}
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto flex-1 flex flex-col justify-center"> {/* FIX 2: Added flex properties to content wrapper */}
+        
         {/* RESPONSIVE GRID: Starts at md, reduced gap on md for tighter tablet flow */}
         <div className="md:grid md:grid-cols-2 md:gap-8 lg:gap-16 md:items-center">
 
           {/* Left Column - Content */}
+          {/* FIX 3: Tighter vertical margins (mb-4 for subtitle, mb-6 for stats) */}
           <div className="text-center md:text-left md:max-w-lg lg:max-w-none mx-auto">
             
             {/* Trust Badge */}
-            <div className="flex justify-center md:justify-start mb-6 sm:mb-8 lg:mb-10">
-              <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-sm border border-[#E8F4EF]">
+            <div className="flex justify-center md:justify-start mb-4 sm:mb-8 lg:mb-10">
+              <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-[#B8EAD9]/10 backdrop-blur-sm border border-[#E8F4EF]">
                 <span className="text-xs font-medium text-[#1F2A2A] tracking-wide whitespace-nowrap">
                   A Complete Storybook Learning Experience
                 </span>
@@ -88,7 +93,7 @@ function HeroSection() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg lg:text-xl text-[#64748B] max-w-sm sm:max-w-md lg:max-w-lg mx-auto md:mx-0 mb-8 sm:mb-12 lg:mb-16 leading-relaxed px-4 md:px-0">
+            <p className="text-base sm:text-lg lg:text-xl text-[#64748B] max-w-sm sm:max-w-md lg:max-w-lg mx-auto md:mx-0 mb-4 sm:mb-12 lg:mb-16 leading-relaxed px-4 md:px-0">
               Sade and Walee take pride, food, and culture to China.
             </p>
 
@@ -124,7 +129,7 @@ function HeroSection() {
           </div>
 
           {/* Right Column - Visual */}
-          <div className="relative max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md mx-auto md:max-w-none md:mx-0 mb-8 sm:mb-12 md:mb-0"> {/* MODIFIED: Reduced max-width for image */}
+          <div className="relative max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md mx-auto md:max-w-none md:mx-0 mb-8 sm:mb-12 md:mb-0">
             {!isImageLoaded && (
               <div className="w-full aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl sm:rounded-2xl lg:rounded-3xl animate-pulse"></div>
             )}
@@ -147,7 +152,7 @@ function HeroSection() {
         {/* Mobile Stats & CTA - Hidden starting on tablet (md) */}
         <div className="md:hidden">
           {/* Mobile Stats */}
-          <div className="flex justify-center gap-8 mb-8">
+          <div className="flex justify-center gap-8 mb-6"> {/* FIX 3: Tighter margin */}
             <div className="text-center">
               <div className="text-xl font-light text-[#1F2A2A]">150+</div>
               <div className="text-xs text-[#64748B]">Sponsored</div>
@@ -165,17 +170,17 @@ function HeroSection() {
           {/* Mobile CTA */}
           <div className="text-center px-2">
             <div className="w-full flex justify-center px-4 lg:hidden">
-  <button
-    onClick={() =>
-      document.getElementById("story-section")?.scrollIntoView({ behavior: "smooth" })
-    }
-    className="w-full max-w-md py-3 rounded-full text-base font-medium text-[#1F2A2A] shadow-lg 
-               hover:scale-105 active:scale-95 transition-all duration-300 group"
-    style={{ background: "#B8EAD9" }}
-  >
-    <span>Discover the Story</span>
-  </button>
-</div>
+              <button
+                onClick={() =>
+                  document.getElementById("story-section")?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="w-full max-w-md py-3 rounded-full text-base font-medium text-[#1F2A2A] shadow-lg 
+                          hover:scale-105 active:scale-95 transition-all duration-300 group"
+                style={{ background: "#B8EAD9" }}
+              >
+                <span>Discover the Story</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
