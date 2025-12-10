@@ -570,7 +570,7 @@ function ProductSection({ openWaitlist, daysRemaining }) {
     premium: {
       name: 'Sade & Walee Storybox',
       description: 'The complete Sade & Walee experience',
-      image: '/video/kit.jpg',
+      image: 'https://res.cloudinary.com/dey8z2fef/image/upload/v1765393066/kit_gq1alx.jpg',
       contents: ['Storybook + Workbook', 'Custom Character Pen', 'Cultural Stickers', 'Chinese Flashcards', 'Completion Certificate', '... and many more!'],
     }
   };
@@ -705,7 +705,7 @@ function ProductSection({ openWaitlist, daysRemaining }) {
                 Join the Waitlist
               </button>
               <p className="text-xs text-[#64748B]">
-                Next storybox batch: February 2024
+                Next storybox batch: February 2026
               </p>
             </div>
           </div>
