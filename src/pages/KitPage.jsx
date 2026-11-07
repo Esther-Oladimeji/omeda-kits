@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function useSimpleCountdown(target) {
   const targetMs = new Date(target).getTime();
@@ -22,6 +23,7 @@ function useSimpleCountdown(target) {
 export default function KitPage() {
   console.log("--- KitPage starting ---");
   const [showModal, setShowModal] = useState(false);
+  const [showPracticeBanner, setShowPracticeBanner] = useState(true);
   const [selectedKit, setSelectedKit] = useState("premium");
   useEffect(() => {
     document.body.style.overflow = showModal ? "hidden" : "auto";
@@ -38,6 +40,11 @@ export default function KitPage() {
       <div className="font-[Nunito] text-[#1F2A2A] bg-white overflow-x-hidden">
        
         <HeroSection />
+        {showPracticeBanner && (
+          <PracticeInvitationBanner
+            onDismiss={() => setShowPracticeBanner(false)}
+          />
+        )}
         <StorySection />
         <BookPreviewSection />
      
@@ -183,6 +190,37 @@ function HeroSection() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function PracticeInvitationBanner({ onDismiss }) {
+  return (
+    <section className="bg-white px-4 pb-8 pt-2 sm:px-6 sm:pb-12">
+      <div className="relative mx-auto grid max-w-5xl overflow-hidden rounded-3xl border border-[#E8F4EF] bg-[#FAFBFC] shadow-sm sm:grid-cols-[1fr_190px]">
+        <div className="flex flex-col items-start justify-center px-6 py-6 sm:px-9 sm:py-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#64748B]">Keep the adventure going</p>
+          <h2 className="mt-2 pr-8 text-xl font-medium text-[#1F2A2A] sm:text-2xl">Practise Chinese with Sade &amp; Walee</h2>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-[#64748B]">A short, friendly way to practise greetings and introductions after the story.</p>
+          <Link
+            to="/practice/chinese"
+            className="mt-4 inline-flex min-h-12 items-center justify-center rounded-full bg-[#B8EAD9] px-6 py-3 text-sm font-semibold text-[#1F2A2A] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A] focus-visible:ring-offset-2"
+          >
+            Practise Chinese <span aria-hidden="true" className="ml-2">→</span>
+          </Link>
+        </div>
+        <div className="hidden min-h-48 items-end justify-center overflow-hidden bg-[#F8F5EE] sm:flex">
+          <img src="/video/heroes.jpg" alt="Sade and Walee" className="h-48 w-full object-contain object-bottom" />
+        </div>
+        <button
+          type="button"
+          onClick={onDismiss}
+          aria-label="Dismiss Chinese practice invitation"
+          className="absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full text-xl text-[#64748B] transition hover:bg-white hover:text-[#1F2A2A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A]"
+        >
+          ×
+        </button>
       </div>
     </section>
   );
