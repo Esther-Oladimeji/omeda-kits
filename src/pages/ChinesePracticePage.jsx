@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ChineseClassLesson from "./ChineseClassLesson";
+import ChineseSentenceGame from "./ChineseSentenceGame";
+import { SENTENCE_CHAPTERS, isChapterDone } from "./sentenceChapters";
 
 const guides = [
   { id: "sade", name: "Sade", image: "/video/sade.png", color: "#EAF7F2", greeting: "Hi! I’m Sade. Let’s practise together!" },
@@ -194,6 +196,7 @@ export default function ChinesePracticePage() {
   const [fruitTalkAnswerId, setFruitTalkAnswerId] = useState(null);
   const [colourFoundIds, setColourFoundIds] = useState(() => readColourProgress()?.foundIds ?? []);
   const [colourFeedback, setColourFeedback] = useState(null);
+  const [sentenceChapter, setSentenceChapter] = useState(0);
   const round = rounds[roundIndex];
   const currentGuide = guides.find((item) => item.id === guide);
   const conversationPartner = guides.find((item) => item.id !== guide);
@@ -508,7 +511,7 @@ export default function ChinesePracticePage() {
     <main className="min-h-screen bg-[#FDFCFB] px-4 py-5 text-[#1F2A2A] sm:px-6 sm:py-8">
       <div className="mx-auto flex min-h-[calc(100vh-2.5rem)] w-full max-w-5xl flex-col">
         <header className="flex items-center justify-between">
-          {screen === "play" || screen === "complete" || screen === "resume" || screen === "familyPreview" || screen === "familyPlay" || screen === "familyComplete" || screen === "fruitIntro" || screen === "fruitLearn" || screen === "fruitRecall" || screen === "fruitTalk" || screen === "fruitComplete" || screen === "colourHunt" || screen === "colourComplete" || screen === "classLesson" ? (
+          {screen === "play" || screen === "complete" || screen === "resume" || screen === "familyPreview" || screen === "familyPlay" || screen === "familyComplete" || screen === "fruitIntro" || screen === "fruitLearn" || screen === "fruitRecall" || screen === "fruitTalk" || screen === "fruitComplete" || screen === "colourHunt" || screen === "colourComplete" || screen === "classLesson" || screen === "sentenceGame" ? (
             <button type="button" onClick={() => setScreen("journey")} className="rounded-full px-3 py-2 text-sm text-[#64748B] transition hover:bg-white hover:text-[#1F2A2A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A]">← <span className="hidden sm:inline">My learning path</span><span className="sm:hidden">My path</span></button>
           ) : (
             <Link to="/storybox" className="rounded-full px-3 py-2 text-sm text-[#64748B] transition hover:bg-white hover:text-[#1F2A2A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A]">← <span className="hidden sm:inline">Back to the storybook</span><span className="sm:hidden">Back</span></Link>
@@ -595,6 +598,32 @@ export default function ChinesePracticePage() {
                   </button>
                 </div>
               </div>
+              {SENTENCE_CHAPTERS.map((item, i) => {
+                const unlocked = true; // Chapter lock is off for now so any chapter can be played.
+                const finished = isChapterDone(item.id);
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    disabled={!unlocked}
+                    onClick={() => {
+                      setSentenceChapter(i);
+                      setScreen("sentenceGame");
+                    }}
+                    className={`group mb-5 flex w-full items-center justify-between gap-4 overflow-hidden rounded-[1.75rem] border-2 text-left shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A] disabled:cursor-not-allowed ${unlocked ? "border-[#F4C24D] bg-gradient-to-r from-[#FFF4DD] to-white hover:shadow-md" : "border-[#EEE7DC] bg-white opacity-70"}`}
+                  >
+                    <span className="flex min-w-0 items-center gap-4 p-5 sm:p-7">
+                      <span className="relative flex shrink-0">
+                        <span className="flex h-14 w-14 items-end justify-center overflow-hidden rounded-full border-2 border-white bg-[#F2E4D9] shadow-sm"><img src="/games/family/mama.png" alt="" className="h-full w-full object-cover object-top" /></span>
+                        <span className="-ml-4 flex h-14 w-14 items-end justify-center overflow-hidden rounded-full border-2 border-white bg-[#F1E2E4] shadow-sm"><img src="/games/family/baba.png" alt="" className="h-full w-full object-cover object-top" /></span>
+                        <span className="absolute -bottom-2 -right-3 text-3xl" aria-hidden="true">{item.id === "ch1" ? "🍎" : "🥛"}</span>
+                      </span>
+                      <span className="min-w-0"><span className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#C27C0E]">LEVEL 1 · CHAPTER {item.number} · {finished ? "DONE ⭐" : "PLAY ANY TIME"}</span><span className="mt-2 block text-xl font-light sm:text-2xl">{item.title} · {item.subtitle}</span><span className="mt-1 block text-sm text-[#64748B]">Read it, tap it</span></span>
+                    </span>
+                    <span className={`mr-5 shrink-0 rounded-full px-4 py-2 text-sm font-semibold sm:mr-7 ${unlocked ? "bg-[#2BB673] text-white" : "text-[#94A3B8]"}`}>{!unlocked ? "🔒" : finished ? "Again →" : "Play →"}</span>
+                  </button>
+                );
+              })}
               <button type="button" onClick={() => setScreen("classLesson")} className="mb-5 flex w-full items-center justify-between gap-4 overflow-hidden rounded-[1.75rem] border border-[#D9EEE5] bg-white text-left shadow-sm transition hover:border-[#8BD2B9] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A]">
                 <span className="flex min-w-0 items-center gap-4 p-5 sm:p-7"><span className="flex shrink-0 items-end gap-1"><span className="flex h-16 w-14 items-end justify-center overflow-hidden rounded-xl bg-[#E8F4F7]"><img src="/video/ikenna.png" alt="" className="h-full w-full object-contain object-bottom" /></span><span className="flex h-14 w-12 items-end justify-center overflow-hidden rounded-xl bg-[#F1F4E8]"><img src="/video/ada.png" alt="" className="h-full w-full object-contain object-bottom" /></span></span><span className="min-w-0"><span className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#0F766E]">CLASS · TODAY</span><span className="mt-2 block text-xl font-light sm:text-2xl">Let’s meet and talk!</span><span className="mt-1 block text-sm text-[#64748B]">60-minute class adventure</span></span></span>
                 <span className="mr-5 shrink-0 rounded-full bg-[#B8EAD9] px-4 py-2 text-sm font-semibold sm:mr-7">Start →</span>
@@ -602,6 +631,14 @@ export default function ChinesePracticePage() {
               <p className="mt-2 text-center text-xs text-[#94A3B8]">Your chapter progress is saved on this device.</p>
             </div>
           </section>
+        ) : screen === "sentenceGame" ? (
+          <ChineseSentenceGame
+            key={sentenceChapter}
+            chapter={SENTENCE_CHAPTERS[sentenceChapter]}
+            guide={currentGuide ?? guides[0]}
+            onExit={() => setScreen("journey")}
+            onNext={sentenceChapter + 1 < SENTENCE_CHAPTERS.length ? () => setSentenceChapter(sentenceChapter + 1) : undefined}
+          />
         ) : screen === "classLesson" ? (
           <ChineseClassLesson onBack={() => setScreen("journey")} />
         ) : screen === "familyPreview" ? (
