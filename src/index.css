@@ -3,7 +3,7 @@
 /* --------------------------------------------- */
 
 /* Only load Fredoka and Plus Jakarta Sans */
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

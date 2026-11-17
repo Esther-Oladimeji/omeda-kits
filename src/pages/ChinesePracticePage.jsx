@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ChevronDown, Play } from "lucide-react";
 import ChineseClassLesson from "./ChineseClassLesson";
 import ChineseSentenceGame from "./ChineseSentenceGame";
 import { SENTENCE_CHAPTERS, isChapterDone } from "./sentenceChapters";
@@ -104,6 +105,8 @@ const colourHuntItems = [
   { id: "snowman", label: "snowman", emoji: "☃️", colourId: "white" },
 ];
 
+const SHOW_OLD_CHAPTERS = false;
+const CHAPTER_SET_SIZE = 10;
 const PROGRESS_KEY = "omeda-chinese-hello-progress-v2";
 const GUIDE_KEY = "omeda-chinese-guide";
 const FAMILY_PROGRESS_KEY = "omeda-chinese-family-progress-v1";
@@ -197,6 +200,11 @@ export default function ChinesePracticePage() {
   const [colourFoundIds, setColourFoundIds] = useState(() => readColourProgress()?.foundIds ?? []);
   const [colourFeedback, setColourFeedback] = useState(null);
   const [sentenceChapter, setSentenceChapter] = useState(0);
+  // Chapters are grouped in folding sets of 10; the set with the next unfinished chapter starts open.
+  const [openChapterSet, setOpenChapterSet] = useState(() => {
+    const next = SENTENCE_CHAPTERS.findIndex((item) => !isChapterDone(item.id));
+    return Math.floor((next === -1 ? 0 : next) / CHAPTER_SET_SIZE);
+  });
   const round = rounds[roundIndex];
   const currentGuide = guides.find((item) => item.id === guide);
   const conversationPartner = guides.find((item) => item.id !== guide);
@@ -535,6 +543,8 @@ export default function ChinesePracticePage() {
                 <h1 className="text-3xl font-light tracking-tight sm:text-5xl">Chinese adventure</h1>
               </div>
 
+              {/* Older chapters (Hello, Family, Fruit, Colours) are hidden for now. Set SHOW_OLD_CHAPTERS to true to bring them back. */}
+              {SHOW_OLD_CHAPTERS ? (
               <div className="space-y-0">
                 <div className="flex gap-4 sm:gap-6">
                   <div className="flex w-10 shrink-0 flex-col items-center sm:w-12">
@@ -598,32 +608,59 @@ export default function ChinesePracticePage() {
                   </button>
                 </div>
               </div>
-              {SENTENCE_CHAPTERS.map((item, i) => {
-                const unlocked = true; // Chapter lock is off for now so any chapter can be played.
-                const finished = isChapterDone(item.id);
+              ) : null}
+              {Array.from({ length: Math.ceil(SENTENCE_CHAPTERS.length / CHAPTER_SET_SIZE) }, (_, setIndex) => {
+                const chapters = SENTENCE_CHAPTERS.slice(setIndex * CHAPTER_SET_SIZE, (setIndex + 1) * CHAPTER_SET_SIZE);
+                const open = openChapterSet === setIndex;
+                const doneCount = chapters.filter((item) => isChapterDone(item.id)).length;
                 return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    disabled={!unlocked}
-                    onClick={() => {
-                      setSentenceChapter(i);
-                      setScreen("sentenceGame");
-                    }}
-                    className={`group mb-5 flex w-full items-center justify-between gap-4 overflow-hidden rounded-[1.75rem] border-2 text-left shadow-sm transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A] disabled:cursor-not-allowed ${unlocked ? "border-[#F4C24D] bg-gradient-to-r from-[#FFF4DD] to-white hover:shadow-md" : "border-[#EEE7DC] bg-white opacity-70"}`}
-                  >
-                    <span className="flex min-w-0 items-center gap-4 p-5 sm:p-7">
-                      <span className="relative flex shrink-0">
-                        <span className="flex h-14 w-14 items-end justify-center overflow-hidden rounded-full border-2 border-white bg-[#F2E4D9] shadow-sm"><img src="/games/family/mama.png" alt="" className="h-full w-full object-cover object-top" /></span>
-                        <span className="-ml-4 flex h-14 w-14 items-end justify-center overflow-hidden rounded-full border-2 border-white bg-[#F1E2E4] shadow-sm"><img src="/games/family/baba.png" alt="" className="h-full w-full object-cover object-top" /></span>
-                        <span className="absolute -bottom-2 -right-3 text-3xl" aria-hidden="true">{item.id === "ch1" ? "🍎" : "🥛"}</span>
+                  <div key={setIndex} className="mb-3">
+                    <button
+                      type="button"
+                      onClick={() => setOpenChapterSet(open ? -1 : setIndex)}
+                      aria-expanded={open}
+                      className="flex w-full items-center justify-between rounded-2xl bg-white px-5 py-4 text-left shadow-sm ring-1 ring-[#F3E3C3] transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A]"
+                    >
+                      <span className="text-lg font-semibold">Chapters {chapters[0].number}–{chapters[chapters.length - 1].number}</span>
+                      <span className="flex items-center gap-3 text-sm font-semibold text-[#94A3B8]">
+                        ⭐ {doneCount}/{chapters.length}
+                        <ChevronDown size={20} className={`transition ${open ? "rotate-180" : ""}`} />
                       </span>
-                      <span className="min-w-0"><span className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#C27C0E]">LEVEL 1 · CHAPTER {item.number} · {finished ? "DONE ⭐" : "PLAY ANY TIME"}</span><span className="mt-2 block text-xl font-light sm:text-2xl">{item.title} · {item.subtitle}</span><span className="mt-1 block text-sm text-[#64748B]">Read it, tap it</span></span>
-                    </span>
-                    <span className={`mr-5 shrink-0 rounded-full px-4 py-2 text-sm font-semibold sm:mr-7 ${unlocked ? "bg-[#2BB673] text-white" : "text-[#94A3B8]"}`}>{!unlocked ? "🔒" : finished ? "Again →" : "Play →"}</span>
-                  </button>
+                    </button>
+                    {open ? (
+                      <div className="mt-3">
+                        {chapters.map((item) => {
+                          const finished = isChapterDone(item.id);
+                          return (
+                            <button
+                              key={item.id}
+                              type="button"
+                              onClick={() => {
+                                setSentenceChapter(SENTENCE_CHAPTERS.indexOf(item));
+                                setScreen("sentenceGame");
+                              }}
+                              className="mb-3 flex w-full items-center gap-4 rounded-[1.75rem] border-2 border-[#F4C24D] bg-gradient-to-r from-[#FFF4DD] to-white p-4 text-left shadow-sm transition hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A] sm:p-5"
+                            >
+                              <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F4C24D] text-3xl font-bold text-[#5B3B00] shadow-sm">{item.number}</span>
+                              <span className="shrink-0 text-4xl" aria-hidden="true">{item.icon}</span>
+                              <span className="min-w-0 flex-1">
+                                <span className="block truncate text-2xl font-semibold">{item.title}</span>
+                                <span className="block truncate text-sm text-[#64748B]">{item.subtitle}</span>
+                              </span>
+                              {finished ? (
+                                <span className="shrink-0 text-3xl" aria-label="Done">⭐</span>
+                              ) : (
+                                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#2BB673] text-white shadow-sm" aria-label="Play"><Play size={20} fill="currentColor" /></span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ) : null}
+                  </div>
                 );
               })}
+              <div className="mb-5" />
               <button type="button" onClick={() => setScreen("classLesson")} className="mb-5 flex w-full items-center justify-between gap-4 overflow-hidden rounded-[1.75rem] border border-[#D9EEE5] bg-white text-left shadow-sm transition hover:border-[#8BD2B9] hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1F2A2A]">
                 <span className="flex min-w-0 items-center gap-4 p-5 sm:p-7"><span className="flex shrink-0 items-end gap-1"><span className="flex h-16 w-14 items-end justify-center overflow-hidden rounded-xl bg-[#E8F4F7]"><img src="/video/ikenna.png" alt="" className="h-full w-full object-contain object-bottom" /></span><span className="flex h-14 w-12 items-end justify-center overflow-hidden rounded-xl bg-[#F1F4E8]"><img src="/video/ada.png" alt="" className="h-full w-full object-contain object-bottom" /></span></span><span className="min-w-0"><span className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#0F766E]">CLASS · TODAY</span><span className="mt-2 block text-xl font-light sm:text-2xl">Let’s meet and talk!</span><span className="mt-1 block text-sm text-[#64748B]">60-minute class adventure</span></span></span>
                 <span className="mr-5 shrink-0 rounded-full bg-[#B8EAD9] px-4 py-2 text-sm font-semibold sm:mr-7">Start →</span>
@@ -636,6 +673,7 @@ export default function ChinesePracticePage() {
             key={sentenceChapter}
             chapter={SENTENCE_CHAPTERS[sentenceChapter]}
             guide={currentGuide ?? guides[0]}
+            friend={guides.find((item) => item.id !== (currentGuide ?? guides[0]).id)}
             onExit={() => setScreen("journey")}
             onNext={sentenceChapter + 1 < SENTENCE_CHAPTERS.length ? () => setSentenceChapter(sentenceChapter + 1) : undefined}
           />
