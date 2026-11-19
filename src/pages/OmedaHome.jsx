@@ -11,8 +11,8 @@ const offerings = [
   },
   {
     id: "outreach",
-    title: "Oshoroko education outreach",
-    description: "Exercise books, jotters, pens, and pencils for children in Oshoroko.",
+    title: "Our education outreach",
+    description: "We bring books, learning kits, games and digital learning pads to children in communities with fewer resources.",
     link: "#outreach-gallery",
     action: "See more photos",
     style: "bg-[#E8F1EC]",
@@ -67,12 +67,12 @@ export default function OmedaHome() {
           <div className="max-w-lg py-3 lg:py-6">
             <p className="text-sm font-semibold text-[#39745F]">Education for Nigerian children</p>
             <h1 className="mt-4 text-[2.5rem] font-medium leading-[1.08] tracking-tight sm:text-5xl">More children deserve the chance to learn.</h1>
-            <p className="mt-4 max-w-md text-base leading-7 text-[#586762]">Made for Nigerian kids. Bringing learning, play and opportunity to more communities.</p>
+            <p className="mt-4 max-w-md text-base leading-7 text-[#586762]">Bringing learning, play and opportunity to more communities.</p>
             <Link to="/storybox" className="mt-6 inline-flex min-h-12 items-center justify-center rounded-full bg-[#B8EAD9] px-5 py-3 text-sm font-bold text-[#183C33]">Learn Chinese with Sade &amp; Walee <span aria-hidden="true" className="ml-2">→</span></Link>
           </div>
           <figure id="osh-oroko" className="min-w-0 scroll-mt-5">
             <img src="/outreach/osh-oroko-group.jpg" alt="Children and community members at Omeda’s Oshoroko visit" className="aspect-[1.35/1] w-full rounded-[1.35rem] object-cover" />
-            <figcaption className="mt-2 text-sm font-medium text-[#394640]">Children receive school supplies during Omeda’s Oshoroko outreach in Lagos.</figcaption>
+            <figcaption className="mt-2 text-sm font-medium text-[#394640]">With the Prince of Oshoroko, Omeda donated learning kits to the community’s top-performing students.</figcaption>
           </figure>
         </div>
       </section>
@@ -96,7 +96,9 @@ export default function OmedaHome() {
           </div>
           <div className="grid grid-cols-2 gap-3 sm:gap-5">
             <img src="/outreach/osh-oroko-community.jpg" alt="Children and community members gathered during Omeda’s Oshoroko outreach" className="aspect-[4/3] w-full rounded-[1.1rem] object-cover" />
+            <img src="/outreach/osh-oroko-classroom.jpg" alt="Children gathered in their classroom during Omeda’s Oshoroko outreach" className="aspect-[4/3] w-full rounded-[1.1rem] object-cover" />
             <img src="/outreach/osh-oroko-wave.jpg" alt="Children waving during Omeda’s Oshoroko outreach" className="aspect-[4/3] w-full rounded-[1.1rem] object-cover" />
+            <img src="/outreach/osh-oroko-student-kit.jpg" alt="Student receiving an Omeda learning kit during the Oshoroko outreach" className="aspect-[4/3] w-full rounded-[1.1rem] object-cover" />
           </div>
         </div>
       </section>
@@ -104,7 +106,7 @@ export default function OmedaHome() {
       <section id="goal" className="scroll-mt-5 border-t border-[#E9E6DE] bg-[#F1F3EA] px-5 py-7 sm:px-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm font-medium text-[#394640]">We’re working to get learning tools to 1,000 children.</p>
-          <p className="text-xs font-medium text-[#586762]">Exercise books · jotters · pens · pencils</p>
+          <p className="text-xs font-medium text-[#586762]">School kits · learning tablets · STEM kits</p>
         </div>
       </section>
 
@@ -114,3 +116,4 @@ export default function OmedaHome() {
     </main>
   );
 }
+
