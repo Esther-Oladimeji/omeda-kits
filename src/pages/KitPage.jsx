@@ -70,6 +70,16 @@ function HeroSection() {
     // FIX 1: Apply flex structure and min-h-screen on mobile to constrain height.
     // Use minimal vertical padding (pt-8 pb-4) to reduce height. Revert to normal flow on medium screens.
     <section className="w-full px-6 lg:px-8 pt-8 pb-4 md:py-16 lg:py-24 bg-white relative overflow-hidden min-h-screen flex flex-col md:block">
+
+      <div className="relative z-10 mx-auto mb-5 flex w-full max-w-6xl items-center justify-between">
+        <Link to="/" aria-label="Back to Omeda home" className="inline-flex min-h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold text-[#53635E] transition hover:bg-[#F1F5F2] hover:text-[#1F2A2A]">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4" aria-hidden="true"><path d="M14.5 5 7.5 12l7 7M8 12h12" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          Omeda home
+        </Link>
+        <Link to="/practice/chinese" className="inline-flex min-h-10 items-center justify-center rounded-full bg-[#B8EAD9] px-4 py-2 text-sm font-bold text-[#183C33] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          Play Chinese games <span aria-hidden="true" className="ml-2">→</span>
+        </Link>
+      </div>
       
       {/* Background Elements - Responsive (No change here) */}
       <div className="absolute top-10 -left-4 w-24 h-24 sm:w-40 sm:h-40 lg:w-60 lg:h-60 rounded-full bg-[#B8EAD9] opacity-3 blur-2xl sm:blur-3xl"></div>
